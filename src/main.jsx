@@ -6,9 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename="/react">
-    <ThemeProvider>
+  <ThemeProvider>
+    <BrowserRouter basename="/react">
       <App />
-    </ThemeProvider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </ThemeProvider>
 );
