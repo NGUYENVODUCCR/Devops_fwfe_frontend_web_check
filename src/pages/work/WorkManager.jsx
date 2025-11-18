@@ -40,20 +40,24 @@ const WorkManager = () => {
         maxAccepted: workForm.maxAccepted === "" ? 0 : Number(workForm.maxAccepted),
         maxReceiver: workForm.maxReceiver === "" ? 0 : Number(workForm.maxReceiver),
         salary: workForm.salary === "" ? 0 : Number(workForm.salary),
+        companyId: workForm.companyId || 1, // thêm companyId, mặc định 1 nếu chưa chọn
       };
-
+  
+      let res;
       if (workForm.id) {
-        const updated = await updateWork(workForm.id, payload);
-        setWorks(works.map((w) => (w.id === updated.id ? updated : w)));
+        res = await updateWork(workForm.id, payload);
+        setWorks(works.map((w) => (w.id === res.id ? res : w)));
       } else {
-        const created = await createWork(payload);
-        setWorks([...works, created]);
+        res = await createWork(payload);
+        setWorks([...works, res]);
       }
       setShowWorkModal(false);
-    } catch (e) {
-      alert("Lỗi lưu công việc: " + e);
+    } catch (err) {
+      console.error(err);
+      alert("Lỗi lưu công việc: " + err.message);
     }
   };
+  
 
   const handleWorkEdit = (w) => {
     setWorkForm({
