@@ -20,7 +20,6 @@ const ChatPage = () => {
     }
   };
 
-  // WebSocket STOMP
   useEffect(() => {
     if (!username) return;
 
@@ -29,7 +28,6 @@ const ChatPage = () => {
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({ Authorization: `Bearer ${token}` }, () => {
-      // Nhận tin nhắn nhóm
       stompClient.subscribe("/topic/chat/group", (msg) => {
         try {
           const data = JSON.parse(msg.body);
@@ -40,7 +38,6 @@ const ChatPage = () => {
         }
       });
 
-      // Nhận tin nhắn private
       stompClient.subscribe(`/user/${username}/queue/messages`, (msg) => {
         try {
           const data = JSON.parse(msg.body);
@@ -61,7 +58,6 @@ const ChatPage = () => {
     return () => stompClient.disconnect();
   }, [username]);
 
-  // Fetch inbox + lịch sử private
   useEffect(() => {
     const fetchPrivateHistory = async () => {
       if (!username) return;
@@ -195,7 +191,6 @@ const ChatPage = () => {
 
   return (
     <div className="flex gap-4 h-screen p-4 bg-gray-100">
-      {/* Sidebar */}
       <div className="w-1/4 border rounded-lg p-2 bg-white flex flex-col">
         <h2 className="font-bold mb-2 text-center">Hộp thư</h2>
         <div className="flex justify-around mb-2">
@@ -229,7 +224,6 @@ const ChatPage = () => {
         )}
       </div>
 
-      {/* Chat Window */}
       <div className="flex-1 flex flex-col border rounded-lg p-4 bg-white shadow overflow-y-auto" ref={scrollRef}>
         <h2 className="font-bold mb-2 text-xl">
           {chatMode === "group"

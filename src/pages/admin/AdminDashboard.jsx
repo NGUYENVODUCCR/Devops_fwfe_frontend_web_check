@@ -15,8 +15,6 @@ const AdminDashboard = () => {
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
 
-
-  // Lấy user
   const fetchUsers = async () => {
     try {
       const data = await getAllUsers();
@@ -35,7 +33,6 @@ const AdminDashboard = () => {
     fetchUsers();
   }, []);
 
-  // Xóa user
   const handleDelete = async (id) => {
     if (window.confirm("Bạn có chắc muốn xóa người dùng này?")) {
       try {
@@ -47,7 +44,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Khóa / mở khóa
   const handleLockUnlock = async (user) => {
     try {
       if (user.locked) await unlockUser(user.id);
@@ -58,14 +54,12 @@ const AdminDashboard = () => {
     }
   };
 
-  // Mở modal edit
   const openEditModal = (user) => {
     setEditingUser(user);
     setNameInput(user.name);
     setEmailInput(user.email);
   };
 
-  // Lưu sửa
   const saveEdit = async () => {
     try {
       await updateUser(editingUser.id, { name: nameInput, email: emailInput });
@@ -86,7 +80,6 @@ const AdminDashboard = () => {
 
   return (
     <div className="p-6">
-      {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Quản lý người dùng</h1>
         <button
@@ -97,7 +90,6 @@ const AdminDashboard = () => {
         </button>
       </div>
 
-      {/* Search */}
       <div className="mb-4">
         <input
           type="text"
@@ -115,11 +107,8 @@ const AdminDashboard = () => {
           <option value="ROLE_ADMIN">Admin</option>
           <option value="ROLE_USER">User</option>
           <option value="ROLE_MANAGER">Manager</option>
-          {/* thêm các role khác nếu cần */}
         </select>
       </div>
-
-      {/* Table */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <table className="w-full">
           <thead className="bg-gray-100 text-gray-700 uppercase text-sm">
@@ -188,7 +177,6 @@ const AdminDashboard = () => {
         </table>
       </div>
 
-      {/* Modal */}
       {editingUser && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 backdrop-blur-sm">
           <div className="bg-white p-6 rounded-xl shadow-xl w-96 animate-fadeIn">

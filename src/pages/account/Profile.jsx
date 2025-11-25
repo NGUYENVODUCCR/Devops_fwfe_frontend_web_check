@@ -54,12 +54,10 @@ export default function Profile() {
 
   return (
     <div className="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
-      {/* Header */}
       <div className="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-400 rounded-xl shadow mb-6 text-center">
         <h1 className="text-white text-xl font-bold">Thông tin cá nhân</h1>
       </div>
 
-      {/* Avatar */}
       <div className="bg-purple-500 rounded-full w-28 h-28 flex items-center justify-center shadow-lg">
         <span className="text-white text-5xl">👤</span>
       </div>
@@ -67,7 +65,6 @@ export default function Profile() {
       <h2 className="mt-4 text-xl font-semibold">{user.name}</h2>
       <p className="text-gray-600">{user.username}</p>
 
-      {/* Card thông tin */}
       <div className="bg-white w-full max-w-xl mt-6 rounded-xl shadow-lg overflow-hidden">
         <InfoTile icon={"📛"} label="Họ tên" value={user.name} />
         <InfoTile icon={"📧"} label="Email" value={user.email} />

@@ -30,8 +30,6 @@ export default function UserDashboard() {
         data.map(async (job) => {
           let hasAccepted = false;
           let acceptedCount = 0;
-
-          // Kiểm tra user đã nhận chưa
           try {
             const acceptedJobs = await getAcceptedJobsByStatus(job.id, "PENDING");
             hasAccepted = acceptedJobs.length > 0;
@@ -39,7 +37,6 @@ export default function UserDashboard() {
             console.warn(`Không thể kiểm tra trạng thái đã nhận của job ${job.id}:`, err);
           }
 
-          // Lấy tổng số người đã nhận
           try {
             const allAcceptances = await getAllAcceptances(job.id);
             acceptedCount = allAcceptances.length;
@@ -51,7 +48,7 @@ export default function UserDashboard() {
             ...job,
             hasAccepted,
             acceptedCount,
-            maxAssignees: job.maxReceiver || 2, // fallback
+            maxAssignees: job.maxReceiver || 2, 
             descriptionWork: job.descriptionWork || "Không có mô tả"
           };
         })
@@ -79,7 +76,6 @@ export default function UserDashboard() {
   if (!accountId) return alert("Không xác định được accountId!");
   if (role === "ROLE_ADMIN" || role === "ROLE_MANAGER") return alert("Chỉ dành cho User!");
 
-  // 🔥 Check số người nhận trước khi gọi API
   if ((job.acceptedCount || 0) >= (job.maxAssignees || 2)) {
     return alert("Công việc này đã đủ người nhận, vui lòng chọn công việc khác!");
   }

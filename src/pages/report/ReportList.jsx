@@ -4,7 +4,7 @@ import { lockUser, unlockUser } from "../../services/accountService";
 
 const ReportList = () => {
   const [reports, setReports] = useState([]);
-  const [message, setMessage] = useState(""); // thông báo
+  const [message, setMessage] = useState(""); 
   const [searchUser, setSearchUser] = useState("");
 
   useEffect(() => {
@@ -45,11 +45,9 @@ const ReportList = () => {
         setMessage(`Khóa tài khoản thành công`);
       }
 
-      // reload danh sách báo cáo
       const data = await getUnresolvedReports();
       setReports(data);
 
-      // tự ẩn thông báo sau 3 giây
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {
       console.error("Lỗi lock/unlock:", err);

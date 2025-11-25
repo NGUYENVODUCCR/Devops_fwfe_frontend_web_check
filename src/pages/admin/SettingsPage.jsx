@@ -1,6 +1,5 @@
-// src/pages/admin/SettingsPage.jsx
 import React, { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext"; // sửa đường dẫn đúng
+import { ThemeContext } from "../../context/ThemeContext";
 
 export default function SettingsPage() {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
@@ -13,19 +12,16 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen flex justify-center items-center p-6 bg-gray-100 dark:bg-gray-900 transition-all">
       <div className="w-full max-w-2xl bg-white dark:bg-gray-800 shadow-2xl rounded-3xl p-10 border border-gray-200 dark:border-gray-700 transition-all">
-        
-        {/* Title */}
+
         <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
           ⚙️ Trung Tâm Cài Đặt
         </h1>
 
-        {/* SECTION 1: Theme */}
         <div className="mb-10">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Giao diện
           </h2>
 
-          {/* Toggle Dark Mode */}
           <div className="flex items-center justify-between p-4 rounded-2xl bg-gray-100 dark:bg-gray-700 transition-all">
             <div>
               <p className="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -36,7 +32,6 @@ export default function SettingsPage() {
               </p>
             </div>
 
-            {/* iOS Toggle Switch */}
             <label className="relative inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -52,7 +47,6 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* SECTION 2: App Options */}
         <div className="mb-10">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Tùy chọn ứng dụng
@@ -77,7 +71,6 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* LOGOUT */}
         <button
           className="w-full py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xl 
           shadow-lg transition text-lg"

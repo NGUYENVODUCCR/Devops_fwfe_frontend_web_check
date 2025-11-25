@@ -5,7 +5,6 @@ import { ThemeContext } from "../context/ThemeContext";
 import UserSidebar from "./UserSidebar";
 import UserNavbar from "./UserNavbar";
 
-// Pages
 import UserDashboard from "../pages/user/UserDashboard";
 import Profile from "../pages/account/Profile";
 import SearchAccount from "../pages/account/SearchAccount";
@@ -48,7 +47,6 @@ export default function UserLayout() {
             <Route path="settings" element={<SettingsPage />} />
           </Routes>
 
-          {/* Nút WW: Manager/Admin */}
           {(role === "ROLE_MANAGER" || role === "ROLE_ADMIN") && (
             <button
               onClick={handleManagerClick}
@@ -58,7 +56,6 @@ export default function UserLayout() {
             </button>
           )}
 
-          {/* Nút AD: Chỉ Admin */}
           {role === "ROLE_ADMIN" && (
             <button
               onClick={handleAdminClick}

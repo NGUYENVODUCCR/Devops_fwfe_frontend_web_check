@@ -14,7 +14,6 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Validate frontend
   const validateForm = () => {
     if (!form.username || !form.name || !form.email || !form.password || !form.confirmPassword) {
       setErrorMessage("Vui lòng điền đầy đủ tất cả các trường!");
@@ -26,7 +25,6 @@ const Register = () => {
       return false;
     }
 
-    // Password regex: ít nhất 8 ký tự, chữ hoa, chữ thường, số, ký tự đặc biệt
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
     if (!passwordRegex.test(form.password)) {
       setErrorMessage(
@@ -35,7 +33,6 @@ const Register = () => {
       return false;
     }
 
-    // Email phải @gmail.com
     const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     if (!emailRegex.test(form.email)) {
       setErrorMessage("Vui lòng sử dụng email @gmail.com");
@@ -59,14 +56,13 @@ const Register = () => {
         name: form.name,
         email: form.email,
         password: form.password,
-        confirmPassword: form.confirmPassword, // Bắt buộc gửi confirmPassword
+        confirmPassword: form.confirmPassword, 
       });
 
       alert("Đăng ký thành công!");
       navigate("/login");
     } catch (err) {
       console.error(err);
-      // Backend có thể trả { message: "..." } hoặc string
       const msg =
         err.response?.data?.message ||
         err.response?.data ||
