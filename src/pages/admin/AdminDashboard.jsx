@@ -13,6 +13,8 @@ const AdminDashboard = () => {
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [search, setSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("");
+
 
   // Lấy user
   const fetchUsers = async () => {
@@ -74,6 +76,14 @@ const AdminDashboard = () => {
     }
   };
 
+  const filteredUsers = users.filter(
+    (u) =>
+      (u.name.toLowerCase().includes(search.toLowerCase()) ||
+       u.email.toLowerCase().includes(search.toLowerCase())) &&
+      (roleFilter === "" || u.role === roleFilter)
+  );
+  
+
   return (
     <div className="p-6">
       {/* Header */}
@@ -96,6 +106,17 @@ const AdminDashboard = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <select
+          className="p-3 border rounded-lg shadow-sm focus:ring focus:ring-blue-300"
+          value={roleFilter}
+          onChange={(e) => setRoleFilter(e.target.value)}
+        >
+          <option value="">Tất cả vai trò</option>
+          <option value="ROLE_ADMIN">Admin</option>
+          <option value="ROLE_USER">User</option>
+          <option value="ROLE_MANAGER">Manager</option>
+          {/* thêm các role khác nếu cần */}
+        </select>
       </div>
 
       {/* Table */}
@@ -111,29 +132,22 @@ const AdminDashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {users
-              .filter(
-                (u) =>
-                  u.name.toLowerCase().includes(search.toLowerCase()) ||
-                  u.email.toLowerCase().includes(search.toLowerCase())
-              )
+            {filteredUsers
               .map((u, idx) => (
                 <tr
                   key={u.id}
-                  className={`border-t ${
-                    idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  }`}
+                  className={`border-t ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    }`}
                 >
                   <td className="px-4 py-3">{u.name}</td>
                   <td className="px-4 py-3">{u.email}</td>
                   <td className="px-4 py-3">{u.role}</td>
                   <td className="px-4 py-3">
                     <span
-                      className={`px-2 py-1 rounded text-sm ${
-                        u.locked
+                      className={`px-2 py-1 rounded text-sm ${u.locked
                           ? "bg-red-200 text-red-600"
                           : "bg-green-200 text-green-600"
-                      }`}
+                        }`}
                     >
                       {u.locked ? "Đã khóa" : "Hoạt động"}
                     </span>
@@ -150,11 +164,10 @@ const AdminDashboard = () => {
 
                       <button
                         onClick={() => handleLockUnlock(u)}
-                        className={`w-24 px-3 py-1 rounded-lg text-white transition ${
-                          u.locked
+                        className={`w-24 px-3 py-1 rounded-lg text-white transition ${u.locked
                             ? "bg-green-500 hover:bg-green-600"
                             : "bg-yellow-500 hover:bg-yellow-600"
-                        }`}
+                          }`}
                       >
                         {u.locked ? "Mở khóa" : "Khóa"}
                       </button>
