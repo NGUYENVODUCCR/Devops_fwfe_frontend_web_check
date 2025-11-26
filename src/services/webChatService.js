@@ -6,7 +6,7 @@ let stompClient = null;
 // Kết nối WebSocket + subscribe private messages
 export const connectWebSocket = (onMessageReceived) => {
   const token = localStorage.getItem('token');
-  const socket = new SockJS('https://fwfedevhieu.duckdns.org/ws');
+  const socket = new SockJS('https://fwfe.duckdns.org/ws');
   stompClient = Stomp.over(socket);
 
   stompClient.connect(

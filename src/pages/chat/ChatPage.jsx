@@ -29,7 +29,7 @@ const ChatPage = () => {
     if (!username) return;
 
     const token = localStorage.getItem("token");
-    const socket = new SockJS("https://fwfedevhieu.duckdns.org/ws");
+    const socket = new SockJS("https://fwfe.duckdns.org/ws");
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({ Authorization: `Bearer ${token}` }, () => {
@@ -72,7 +72,7 @@ const ChatPage = () => {
         const token = localStorage.getItem("token");
 
         const resInbox = await fetch(
-          `https://fwfedevhieu.duckdns.org/api/chat/chat/private/inbox?myUsername=${username}`,
+          `https://fwfe.duckdns.org/api/chat/chat/private/inbox?myUsername=${username}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -91,7 +91,7 @@ const ChatPage = () => {
           if (user === username) continue;
           try {
             const resMessages = await fetch(
-              `https://fwfedevhieu.duckdns.org/api/chat/chat/history/private?user=${user}&limit=50`,
+              `https://fwfe.duckdns.org/api/chat/chat/history/private?user=${user}&limit=50`,
               { headers: { Authorization: `Bearer ${token}` } }
             );
             const msgs = await resMessages.json();
@@ -130,7 +130,7 @@ const ChatPage = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `https://fwfedevhieu.duckdns.org/api/chat/chat/history/private?user=${user}&limit=50`,
+          `https://fwfe.duckdns.org/api/chat/chat/history/private?user=${user}&limit=50`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await res.json();
