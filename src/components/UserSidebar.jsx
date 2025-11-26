@@ -4,6 +4,8 @@ import { ThemeContext } from "../context/ThemeContext";
 
 export default function UserSidebar() {
   const { darkMode } = useContext(ThemeContext);
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   const linkClass = ({ isActive }) =>
     `block px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 ${
@@ -19,21 +21,34 @@ export default function UserSidebar() {
       }`}
     >
       <nav className="space-y-2">
-        <NavLink to="/dashboard" className={linkClass}>
+        {/* Link mặc định */}
+        <NavLink to="/react/dashboard" className={linkClass}>
           🏠 Trang chủ
         </NavLink>
-        <NavLink to="/chat" className={linkClass}>
-          💬 Tin nhắn
-        </NavLink>
-        <NavLink to="/report" className={linkClass}>
-          📄 Báo cáo
-        </NavLink>
-        <NavLink to="/profile" className={linkClass}>
-          👤 Tài khoản
-        </NavLink>
-        <NavLink to="/settings" className={linkClass}>
-          ⚙️ Cài đặt
-        </NavLink>
+
+        {/* Link cho user đã đăng nhập */}
+        {token && (
+          <>
+          {/* Link báo cáo: chỉ hiển thị với Manager/Admin */}
+            {(role === "ROLE_MANAGER" || role === "ROLE_ADMIN") && (
+              <NavLink to="/react/work" className={linkClass}>
+              💼 Công việc
+            </NavLink>
+            )}         
+            <NavLink to="/react/chat" className={linkClass}>
+              💬 Tin nhắn
+            </NavLink>
+            <NavLink to="/react/company-list" className={linkClass}>
+              🗂️ Danh sách công ty
+            </NavLink>
+            <NavLink to="/react/profile" className={linkClass}>
+              👤 Tài khoản
+            </NavLink>
+            <NavLink to="/react/settings" className={linkClass}>
+              ⚙️ Cài đặt
+            </NavLink>
+          </>
+        )}
       </nav>
     </aside>
   );

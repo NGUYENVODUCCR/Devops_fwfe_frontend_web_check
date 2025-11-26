@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://fwfe.duckdns.org/api",
-  withCredentials: true, 
+  baseURL: "https://fwfedevhieu.duckdns.org/api",
+  withCredentials: true, // giữ cookie nếu backend dùng
   headers: {
-    "Content-Type": "application/json", 
+    "Content-Type": "application/json", // bắt buộc để backend hiểu JSON
   },
 });
 

@@ -3,9 +3,10 @@ import Stomp from 'stompjs';
 
 let stompClient = null;
 
+// Kết nối WebSocket + subscribe private messages
 export const connectWebSocket = (onMessageReceived) => {
   const token = localStorage.getItem('token');
-  const socket = new SockJS('https://fwfe.duckdns.org/ws');
+  const socket = new SockJS('https://fwfedevhieu.duckdns.org/ws');
   stompClient = Stomp.over(socket);
 
   stompClient.connect(
@@ -13,6 +14,7 @@ export const connectWebSocket = (onMessageReceived) => {
     () => {
       console.log('✅ Web connected to WebSocket');
 
+      // Subscribe private queue
       stompClient.subscribe(`/user/queue/private`, (msg) => {
         const message = JSON.parse(msg.body);
         if (onMessageReceived) onMessageReceived(message);
@@ -22,6 +24,7 @@ export const connectWebSocket = (onMessageReceived) => {
   );
 };
 
+// Gửi tin nhắn private
 export const sendPrivateMessage = (receiverUsername, content) => {
   if (!stompClient || !stompClient.connected) {
     console.error('WebSocket chưa kết nối');
@@ -33,6 +36,7 @@ export const sendPrivateMessage = (receiverUsername, content) => {
   }));
 };
 
+// Ngắt kết nối WebSocket
 export const disconnectWebSocket = () => {
   if (stompClient) {
     stompClient.disconnect(() => {

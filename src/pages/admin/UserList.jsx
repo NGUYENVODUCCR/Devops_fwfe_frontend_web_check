@@ -28,6 +28,7 @@ const AdminCreateAccount = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Reset messages
     setErrorMessage("");
     setSuccessMessage("");
     setCreatedUser(null);
@@ -67,6 +68,7 @@ const AdminCreateAccount = () => {
         role: form.role,
       });
 
+      // Reset form
       setForm({
         username: "",
         name: "",
@@ -105,18 +107,21 @@ const AdminCreateAccount = () => {
           Tạo tài khoản mới
         </h1>
 
+        {/* Error message */}
         {errorMessage && (
           <div className="bg-red-100 text-red-700 p-3 rounded text-center">
             {errorMessage}
           </div>
         )}
 
+        {/* Success message */}
         {successMessage && (
           <div className="bg-green-100 text-green-700 p-3 rounded text-center">
             {successMessage}
           </div>
         )}
 
+        {/* Username, Name, Email */}
         {["username", "name", "email"].map((field) => (
           <div key={field} className="flex flex-col space-y-1">
             <label className="font-medium text-gray-700">
@@ -133,6 +138,7 @@ const AdminCreateAccount = () => {
           </div>
         ))}
 
+        {/* Password */}
         <div className="flex flex-col space-y-1 relative">
           <label className="font-medium text-gray-700">Mật khẩu</label>
           <input
@@ -152,6 +158,7 @@ const AdminCreateAccount = () => {
           </button>
         </div>
 
+        {/* Confirm Password */}
         <div className="flex flex-col space-y-1 relative">
           <label className="font-medium text-gray-700">Xác nhận mật khẩu</label>
           <input
@@ -174,6 +181,7 @@ const AdminCreateAccount = () => {
           )}
         </div>
 
+        {/* Role */}
         <div className="flex flex-col space-y-1">
           <label className="font-medium text-gray-700">Vai trò</label>
           <select
@@ -189,6 +197,7 @@ const AdminCreateAccount = () => {
           </select>
         </div>
 
+        {/* Company info if Manager */}
         {form.role === "ROLE_MANAGER" && (
           <div className="border p-4 rounded-xl bg-gray-50 space-y-3">
             <h2 className="font-semibold text-gray-700">Thông tin công ty</h2>
@@ -239,6 +248,7 @@ const AdminCreateAccount = () => {
         </button>
       </form>
 
+      {/* Hiển thị thông tin tài khoản vừa tạo */}
       {createdUser && (
         <div className="mt-6 p-6 max-w-lg w-full bg-green-50 border border-green-200 rounded-xl shadow-md">
           <h2 className="text-xl font-semibold text-green-800 mb-2">Tài khoản vừa tạo</h2>

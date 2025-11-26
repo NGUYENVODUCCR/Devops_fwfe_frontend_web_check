@@ -1,9 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
 export default function AdminSidebar() {
   const { darkMode } = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   const linkClass = ({ isActive }) =>
     `block px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 ${
@@ -19,31 +20,39 @@ export default function AdminSidebar() {
       }`}
     >
       <nav className="space-y-2">
-        <NavLink to="/dashboard" className={linkClass}>
+        {/* Nút trang chủ: trở về UserDashboard */}
+        <button
+          onClick={() => navigate("/react/dashboard")}
+          className={linkClass({ isActive: false })}
+        >
           🏠 Trang chủ
-        </NavLink>
-        <NavLink to="/admin/dashboard" className={linkClass}>
+        </button>
+
+        <NavLink to="/react/admin/dashboard" className={linkClass}>
           📊 Dashboard
         </NavLink>
-        <NavLink to="/admin/users" className={linkClass}>
+        <NavLink to="/react/admin/users" className={linkClass}>
           👥 Quản lý người dùng
         </NavLink>
-        <NavLink to="/admin/company" className={linkClass}>
+        <NavLink to="/react/admin/company" className={linkClass}>
           🏢 Công ty
         </NavLink>
-        <NavLink to="/admin/work" className={linkClass}>
+        <NavLink to="/react/admin/work" className={linkClass}>
           💼 Công việc
         </NavLink>
-        <NavLink to="/admin/chat" className={linkClass}>
+        <NavLink to="/react/admin/chat" className={linkClass}>
           💬 Trò chuyện
         </NavLink>
-        <NavLink to="/admin/report" className={linkClass}>
+        <NavLink to="/react/admin/report" className={linkClass}>
           📄 Báo cáo
         </NavLink>
-        <NavLink to="/admin/account/profile" className={linkClass}>
+        <NavLink to="/react/company-list" className={linkClass}>
+          🗂️ Danh sách công ty
+        </NavLink>
+        <NavLink to="/react/admin/account/profile" className={linkClass}>
           👤 Tài khoản
         </NavLink>
-        <NavLink to="/admin/settings" className={linkClass}>
+        <NavLink to="/react/admin/settings" className={linkClass}>
           ⚙️ Cài đặt
         </NavLink>
       </nav>

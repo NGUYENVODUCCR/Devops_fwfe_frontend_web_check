@@ -5,12 +5,13 @@ import CompanyManager from "../company/CompanyManager";
 export default function ManagerDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState("company"); 
+  const [activeTab, setActiveTab] = useState("company"); // "company" hoặc "work"
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
+        // Nếu cần, fetch dữ liệu manager ở đây
       } catch (err) {
         setError("Lỗi khi tải dữ liệu");
       } finally {

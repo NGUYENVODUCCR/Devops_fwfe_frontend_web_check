@@ -1,43 +1,49 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLayout from "./components/AdminLayout";
 import UserLayout from "./components/UserLayout";
 
+// Auth
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 
+// Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserList from "./pages/admin/UserList";
 import CreateUserForm from "./pages/admin/CreateUserForm";
+import SettingsPage from "./pages/admin/SettingsPage";
 
+// User pages
 import UserDashboard from "./pages/user/UserDashboard";
-import UserNavbar from "./components/UserNavbar";
 import ManagerDashboard from "./pages/user/ManagerDashboard";
 
+// Company
 import CompanyManager from "./pages/company/CompanyManager";
-
+import CompanyList from "./pages/company/CompanyList";
+// Work
 import WorkManager from "./pages/work/WorkManager";
 
+// Chat
 import ChatPage from "./pages/chat/ChatPage";
 
+// Account
 import Profile from "./pages/account/Profile";
 import SearchAccount from "./pages/account/SearchAccount";
 
+// Report
 import ReportList from "./pages/report/ReportList";
 import ReportForm from "./pages/report/ReportForm";
-
-import SettingsPage from "./pages/admin/SettingsPage";
 
 export default function Router() {
   return (
     <Routes>
       {/* Auth */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/react/login" element={<Login />} />
+      <Route path="/react/register" element={<Register />} />
 
       {/* Admin routes */}
       <Route
-        path="/admin/*"
+        path="/react/admin/*"
         element={
           <ProtectedRoute allowedRoles={["ROLE_ADMIN"]}>
             <AdminLayout />
@@ -55,30 +61,75 @@ export default function Router() {
         <Route path="report" element={<ReportList />} />
         <Route path="report/new" element={<ReportForm />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="company-list" element={<CompanyList />} />
       </Route>
 
       {/* User/Manager routes */}
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"]}>
-            <UserLayout />
-          </ProtectedRoute>
-        }
-      >
-        {/* Trang chủ mặc định */}
-        <Route index element={<UserNavbar />} />
+      <Route path="/react/*" element={<UserLayout />}>
+        {/* Dashboard */}
+        <Route index element={<UserDashboard />} />
         <Route path="dashboard" element={<UserDashboard />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="search-account" element={<SearchAccount />} />
-        <Route path="work/*" element={<WorkManager />} />
-        <Route path="chat/*" element={<ChatPage />} />
-        <Route path="company/*" element={<CompanyManager />} />
-        <Route path="report" element={<ReportList />} />
-        <Route path="report/new" element={<ReportForm />} />
-        <Route path="settings" element={<SettingsPage />} />
 
-        {/* ManagerDashboard (WW) */}
+        {/* Protected tabs */}
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"]}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="work/*"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"]}>
+              <WorkManager />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="chat/*"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"]}>
+              <ChatPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="company/*"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"]}>
+              <CompanyManager />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="company-list" element={<CompanyList />} />
+        <Route
+          path="report"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"]}>
+              <ReportList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="report/new"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"]}>
+              <ReportForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="settings"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"]}>
+              <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Manager dashboard */}
         <Route
           path="manager/interface/*"
           element={
@@ -88,6 +139,9 @@ export default function Router() {
           }
         />
       </Route>
+
+      {/* Redirect mặc định */}
+      <Route path="*" element={<Navigate to="/react/dashboard" replace />} />
     </Routes>
   );
 }

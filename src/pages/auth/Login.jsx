@@ -16,16 +16,19 @@ export default function Login() {
       const data = await login(username, password);
       console.log("Đăng nhập thành công:", data);
 
+      // Lưu thông tin user
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.id);
       localStorage.setItem("username", data.username);
       localStorage.setItem("role", data.role);
 
+      // Điều hướng theo ROLE
       if (data.role === "ROLE_ADMIN") {
-        navigate("/admin/dashboard"); 
+        navigate("/admin/dashboard"); // Admin giao diện cũ
       } else if (data.role === "ROLE_USER" || data.role === "ROLE_MANAGER") {
-        navigate("/dashboard");
+        navigate("/dashboard"); // User + Manager chung giao diện
       } else {
+        // fallback nếu role lạ
         navigate("/login");
       }
     } catch (err) {

@@ -13,6 +13,7 @@ const CompanyManager = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Form State
   const [showForm, setShowForm] = useState(false);
   const [formId, setFormId] = useState(null);
   const [formName, setFormName] = useState("");

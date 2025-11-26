@@ -19,7 +19,6 @@ const getAccountInfo = () => {
 /**
  * 1. User nhận việc
  * @param {number} workId - ID công việc
- * @param {object} options - { note: string, salaryExpected: number }
  * @returns {object|null} dữ liệu backend trả về hoặc null nếu lỗi
  */
 export const acceptWork = async (workId) => {
@@ -29,10 +28,7 @@ export const acceptWork = async (workId) => {
   const { accountId, username } = accountInfo;
 
   try {
-    const data = { 
-      workPostedId: workId, 
-      accountId 
-    };
+    const data = { workPostedId: workId, accountId };
 
     const res = await api.post(`/works/${workId}/acceptances`, data, {
       headers: { "X-Username": username },
@@ -47,6 +43,11 @@ export const acceptWork = async (workId) => {
   }
 };
 
+/**
+ * 2. Lấy tất cả người đã nhận việc của một job
+ * @param {number} workId
+ * @returns {Array}
+ */
 export const getAllAcceptances = async (workId) => {
   try {
     const res = await api.get(`/works/${workId}/acceptances`);
@@ -70,12 +71,10 @@ export const getAcceptedJobsByStatus = async (workId, status) => {
   const { accountId } = accountInfo;
 
   try {
-    const res = await api.get(
-      `/works/${workId}/acceptances/account/${accountId}/status/${status}`
-    );
+    const res = await api.get(`/works/${workId}/acceptances/account/${accountId}/status/${status}`);
     return res.data;
   } catch (err) {
-    console.error("❌ Lỗi lấy công việc đã nhận:", err.response || err);
+    console.error("❌ Lỗi lấy công việc đã nhận theo status:", err.response || err);
     return [];
   }
 };
@@ -94,15 +93,42 @@ export const updateAcceptanceStatus = async (workId, acceptanceId, status) => {
   const { username } = accountInfo;
 
   try {
-    await api.put(
+    const res = await api.put(
       `/works/${workId}/acceptances/${acceptanceId}/status`,
       { status },
       { headers: { "X-Username": username } }
     );
-    console.log("✅ Cập nhật trạng thái thành công:", status);
+
+    console.log(`✅ Cập nhật trạng thái acceptance ${acceptanceId} → ${status}`, res.data);
     return true;
   } catch (err) {
     console.error("❌ Lỗi cập nhật trạng thái:", err.response || err);
+    return false;
+  }
+};
+
+/**
+ * 5. Báo cáo người dùng
+ * @param {number} reportedAccountId
+ * @param {string} reason
+ * @returns {boolean} true nếu báo cáo thành công
+ */
+export const reportUser = async (reportedAccountId, reason) => {
+  const accountInfo = getAccountInfo();
+  if (!accountInfo) return false;
+
+  const { username } = accountInfo;
+
+  try {
+    const res = await api.post(
+      `/reports`,
+      { reportedAccountId, reason },
+      { headers: { "X-Username": username } }
+    );
+    console.log("✅ Báo cáo người dùng thành công:", res.data);
+    return true;
+  } catch (err) {
+    console.error("❌ Lỗi báo cáo người dùng:", err.response || err);
     return false;
   }
 };

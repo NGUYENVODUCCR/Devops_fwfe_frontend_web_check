@@ -23,6 +23,7 @@ const WorkManager = () => {
     salary: "",
   });
 
+  // Load danh sách công ty
   const loadCompanies = async () => {
     try {
       const data = await getMyCompanies();
@@ -32,6 +33,7 @@ const WorkManager = () => {
     }
   };
 
+  // Load công việc + số người nhận thực tế
   const loadWorks = async () => {
     try {
       const data = await getAllWorks();
@@ -41,7 +43,7 @@ const WorkManager = () => {
           const acceptances = await getAllAcceptances(w.id);
           return {
             ...w,
-            currentAccepted: acceptances.length,
+            currentAccepted: acceptances.length, // số người nhận thực tế
           };
         })
       );
