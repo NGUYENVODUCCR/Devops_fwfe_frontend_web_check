@@ -4,7 +4,6 @@
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
 
-  // Helper build headers an toàn
   const buildHeaders = (extraHeaders = {}) => {
     const headers = {};
     if (token) headers.Authorization = `Bearer ${token}`;
@@ -12,9 +11,6 @@
     return { ...headers, ...extraHeaders };
   };
 
-  /**
-   * Lấy tất cả công việc (guest hoặc login)
-   */
   export const getAllWorks = async () => {
     try {
       const res = await api.get("/works-posted", { headers: buildHeaders() });
@@ -29,15 +25,11 @@
       }));
     } catch (err) {
       console.error("Lỗi khi load tất cả công việc:", err);
-      // Guest hoặc backend trả 403 → trả mảng rỗng
       if (err.response?.status === 403) return [];
       throw err;
     }
   };
 
-  /**
-   * Lấy chi tiết 1 công việc theo id
-   */
   export const getWork = async (id) => {
     try {
       const res = await api.get(`/works-posted/${id}`, { headers: buildHeaders() });
@@ -58,9 +50,6 @@
     }
   };
 
-  /**
-   * Tạo công việc mới
-   */
   export const createWork = async (data) => {
     try {
       return await api.post("/works-posted", data, {
@@ -72,9 +61,6 @@
     }
   };
 
-  /**
-   * Cập nhật công việc
-   */
   export const updateWork = async (id, data) => {
     try {
       return await api.put(`/works-posted/${id}`, data, {
@@ -86,9 +72,6 @@
     }
   };
 
-  /**
-   * Xóa công việc
-   */
   export const deleteWork = async (id) => {
     try {
       await api.delete(`/works-posted/${id}`, { headers: buildHeaders({ "X-Username": username }) });
@@ -98,9 +81,6 @@
     }
   };
 
-  /**
-   * Tìm kiếm công việc theo từ khóa
-   */
   export const searchWorks = async (keyword) => {
     try {
       const res = await api.get(`/works-posted/search?keyword=${encodeURIComponent(keyword)}`, {

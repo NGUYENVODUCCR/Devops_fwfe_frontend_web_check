@@ -1,15 +1,13 @@
-// src/components/JobAcceptanceModal.jsx
 import React, { useState } from "react";
 import { updateAcceptanceStatus, reportUser } from "../services/workAcceptanceService.js";
 
 export default function JobAcceptanceModal({ job, onClose, reloadJobs }) {
   const username = localStorage.getItem("username");
   const accountId = Number(localStorage.getItem("accountId"));
-  const role = localStorage.getItem("role"); // Lấy role hiện tại
+  const role = localStorage.getItem("role"); 
   const [loadingStatusId, setLoadingStatusId] = useState(null);
   const [loadingReportId, setLoadingReportId] = useState(null);
 
-  // Cập nhật trạng thái công việc
   const handleStatusChange = async (acceptance, newStatus) => {
     if (acceptance.accountId !== accountId)
       return alert("Chỉ bạn mới có thể chỉnh trạng thái của công việc này!");
@@ -28,7 +26,6 @@ export default function JobAcceptanceModal({ job, onClose, reloadJobs }) {
     }
   };
 
-  // Báo cáo người dùng
   const handleReport = async (reportedAccountId) => {
     const reason = prompt("Nhập lý do báo cáo:");
     if (!reason) return;
@@ -45,7 +42,6 @@ export default function JobAcceptanceModal({ job, onClose, reloadJobs }) {
     }
   };
 
-  // map trạng thái sang màu nền
   const statusStyles = {
     PENDING: "bg-yellow-100 text-yellow-800",
     COMPLETED: "bg-green-100 text-green-800",

@@ -28,7 +28,6 @@ const AdminCreateAccount = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Reset messages
     setErrorMessage("");
     setSuccessMessage("");
     setCreatedUser(null);
@@ -68,7 +67,6 @@ const AdminCreateAccount = () => {
         role: form.role,
       });
 
-      // Reset form
       setForm({
         username: "",
         name: "",

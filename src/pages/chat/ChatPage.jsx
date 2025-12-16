@@ -1,4 +1,3 @@
-// src/pages/chat/ChatPage.jsx
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { Stomp } from "@stomp/stompjs";
@@ -6,7 +5,7 @@ import SockJS from "sockjs-client";
 
 const ChatPage = () => {
   const location = useLocation();
-  const preReceiver = location.state?.receiverUsername || null; // lấy từ Dashboard
+  const preReceiver = location.state?.receiverUsername || null;
   const username = localStorage.getItem("username");
   const [groupMessages, setGroupMessages] = useState([]);
   const [privateInbox, setPrivateInbox] = useState([]);
@@ -29,7 +28,7 @@ const ChatPage = () => {
     if (!username) return;
 
     const token = localStorage.getItem("token");
-    const socket = new SockJS("https://fwfe.duckdns.org/ws");
+    const socket = new SockJS("https://findwork.duckdns.org/ws");
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({ Authorization: `Bearer ${token}` }, () => {
@@ -64,7 +63,6 @@ const ChatPage = () => {
     return () => stompClient.disconnect();
   }, [username]);
 
-  // Fetch inbox + lịch sử private
   useEffect(() => {
     const fetchPrivateHistory = async () => {
       if (!username) return;
@@ -72,7 +70,7 @@ const ChatPage = () => {
         const token = localStorage.getItem("token");
 
         const resInbox = await fetch(
-          `https://fwfe.duckdns.org/api/chat/chat/private/inbox?myUsername=${username}`,
+          `https://findwork.duckdns.org/api/chat/chat/private/inbox?myUsername=${username}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -91,7 +89,7 @@ const ChatPage = () => {
           if (user === username) continue;
           try {
             const resMessages = await fetch(
-              `https://fwfe.duckdns.org/api/chat/chat/history/private?user=${user}&limit=50`,
+              `https://findwork.duckdns.org/api/chat/chat/history/private?user=${user}&limit=50`,
               { headers: { Authorization: `Bearer ${token}` } }
             );
             const msgs = await resMessages.json();
@@ -110,7 +108,6 @@ const ChatPage = () => {
     fetchPrivateHistory();
   }, [username]);
 
-  // Nếu navigate từ Dashboard với receiverUsername
   useEffect(() => {
     if (preReceiver) {
       setChatMode("private");
@@ -130,7 +127,7 @@ const ChatPage = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `https://fwfe.duckdns.org/api/chat/chat/history/private?user=${user}&limit=50`,
+          `https://findwork.duckdns.org/api/chat/chat/history/private?user=${user}&limit=50`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await res.json();

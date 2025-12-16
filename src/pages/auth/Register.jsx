@@ -59,14 +59,13 @@ const Register = () => {
         name: form.name,
         email: form.email,
         password: form.password,
-        confirmPassword: form.confirmPassword, // Bắt buộc gửi confirmPassword
+        confirmPassword: form.confirmPassword, 
       });
 
       alert("Đăng ký thành công!");
       navigate("/login");
     } catch (err) {
       console.error(err);
-      // Backend có thể trả { message: "..." } hoặc string
       const msg =
         err.response?.data?.message ||
         err.response?.data ||

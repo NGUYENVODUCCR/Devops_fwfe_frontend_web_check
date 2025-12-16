@@ -3,7 +3,7 @@ import { reportUser } from "../../services/reportService";
 
 const ReportForm = () => {
   const role = localStorage.getItem("role");
-  if (role === "ROLE_USER") return null; // KHÔNG HIỂN THỊ NẾU LÀ USER
+  if (role === "ROLE_USER") return null; 
 
   const [form, setForm] = useState({ targetUsername: "", reason: "" });
   const [loading, setLoading] = useState(false);

@@ -1,4 +1,3 @@
-// src/pages/user/UserDashboard.jsx
 import { useEffect, useState } from "react";
 import { getAllWorks } from "../../services/workService.js";
 import { acceptWork, getAllAcceptances } from "../../services/workAcceptanceService.js";
@@ -47,7 +46,6 @@ export default function UserDashboard() {
             console.warn(`Không thể lấy nhận việc của job ${job.id}:`, err);
           }
 
-          // Lấy tên người đăng bài từ API
           const posterUsername = job.createdByUsername?.trim() || "Người đăng ẩn danh";
 
           return {

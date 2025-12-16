@@ -3,34 +3,27 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLayout from "./components/AdminLayout";
 import UserLayout from "./components/UserLayout";
 
-// Auth
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 
-// Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserList from "./pages/admin/UserList";
 import CreateUserForm from "./pages/admin/CreateUserForm";
 import SettingsPage from "./pages/admin/SettingsPage";
 
-// User pages
 import UserDashboard from "./pages/user/UserDashboard";
 import ManagerDashboard from "./pages/user/ManagerDashboard";
 
-// Company
 import CompanyManager from "./pages/company/CompanyManager";
 import CompanyList from "./pages/company/CompanyList";
-// Work
+
 import WorkManager from "./pages/work/WorkManager";
 
-// Chat
 import ChatPage from "./pages/chat/ChatPage";
 
-// Account
 import Profile from "./pages/account/Profile";
 import SearchAccount from "./pages/account/SearchAccount";
 
-// Report
 import ReportList from "./pages/report/ReportList";
 import ReportForm from "./pages/report/ReportForm";
 

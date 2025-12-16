@@ -1,4 +1,3 @@
-// src/pages/company/CompanyList.jsx
 import { useEffect, useState } from "react";
 import { getAllCompanies, getCompany } from "../../services/companyService";
 
@@ -9,7 +8,6 @@ export default function CompanyList() {
   const [search, setSearch] = useState("");
   const [selectedCompany, setSelectedCompany] = useState(null);
 
-  // Fetch danh sách công ty khi mount
   useEffect(() => {
     fetchCompanies();
   }, []);
@@ -19,7 +17,7 @@ export default function CompanyList() {
     try {
       const data = await getAllCompanies();
       console.log("DATA BACKEND:", data);
-      // đảm bảo data là mảng
+      
       const companies = Array.isArray(data) ? data : data.data || [];
       setAllCompanies(companies);
       setFilteredCompanies(companies);
@@ -43,7 +41,6 @@ export default function CompanyList() {
     setFilteredCompanies(result);
   };
 
-  // Hiển thị chi tiết công ty
   const openDetail = async (id) => {
     try {
       const detail = await getCompany(id);

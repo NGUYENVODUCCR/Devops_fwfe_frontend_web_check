@@ -7,11 +7,10 @@ export default function ProtectedRoute({ children, allowedRoles }) {
   if (!token) return <Navigate to="/login" replace />;
 
   if (allowedRoles && !allowedRoles.includes(role)) {
-    // redirect về dashboard của user/manager nếu role không hợp lệ
     if (role === "ROLE_USER" || role === "ROLE_MANAGER") {
       return <Navigate to="/dashboard" replace />;
     }
-    return <Navigate to="/login" replace />; // fallback
+    return <Navigate to="/login" replace />;
   }
 
   return children;

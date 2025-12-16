@@ -1,4 +1,3 @@
-// src/pages/admin/SettingsPage.jsx
 import React, { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +8,7 @@ export default function SettingsPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login"); // router tự xử lý base URL, không bị lỗi /react/
+    navigate("/login"); 
   };
 
   return (
